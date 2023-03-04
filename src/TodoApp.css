@@ -18,3 +18,13 @@
   padding-left: 2rem;
   padding-right: 2rem;
 }
+
+.line-through {
+  text-decoration: line-through;
+  color: lightgrey
+}
+
+.button-done {
+  background-color: #cda6e5;
+  border-color: #cda6e5;
+}

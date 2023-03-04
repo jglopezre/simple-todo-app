@@ -1,55 +1,69 @@
-import { useReducer } from 'react'
+import { useEffect, useReducer } from 'react'
 import { todoReducer } from './helper/todoReducer'
 import 'milligram'
 import './TodoApp.css'
+import { TodoList } from './components/TodoList'
+import { TodoAdd } from './components/TodoAdd'
 
 const initialState = [
-  {
+  /* {
     id: new Date().getTime(),
     description: 'Buscar libros',
     done: false
-  },
-  {
-    id: new Date().getTime() + 1,
-    description: 'Botar la basura',
-    done: false
-  }
+  }, */
 ]
+
+const init = () => {
+  return JSON.parse( localStorage.getItem( 'todos' )) || [];
+}
 
 
 function TodoApp() {
-  const [ todos, dispatch ] = useReducer(todoReducer, initialState)
-  console.log(todos)
+  const [ todos, dispatch ] = useReducer(todoReducer, initialState, init);
+
+  useEffect(() => {
+    localStorage.setItem('todos', JSON.stringify( todos ))
+  }, [todos])
+  
+  
+  const handleTodoDataFromForm = (data) => {
+    const action = {
+      type: '[TODO] Add Todo',
+      payload: data
+    };
+
+    dispatch(action);
+  }
+
+  const handleDeleteTodo = (todoId) => {
+    const action = {
+      type: '[TODO] Delete Todo',
+      payload: todoId
+    };
+
+    dispatch(action)
+  }
+
+  const handleToggleDoneTodo = (todoId) => {
+    const action = {
+      type: '[TODO] Toggle Done',
+      payload: todoId
+    }
+    dispatch(action);
+  }
+
   return (
     <>
       <h1>Todo App</h1>
       <hr />
       <div className="row">
         <div className="column column-50">
-          <ul>
-            {
-              todos.map( todo => (
-                <li key={ todo.id } className="list-items">
-                  <span>Item-1</span>
-                  <div>
-                    <button className="button mr-1">Hecho</button>
-                    <button className="button button-outline">Eliminar</button>  
-                  </div>
-                </li>
-              ))
-            }
-          </ul>
+          <TodoList todos={todos} onDeleteTodo={handleDeleteTodo} onTogleDoneTodo={handleToggleDoneTodo}/>
         </div>
         <div className="column column-50">
           <h4>Add Todo</h4>
           <hr />
-          <form>
-            <fieldset>
-              <label htmlFor="todo-todo-field">¿Qué hay que hacer?</label>
-              <input type="text" id="input-todo-field" />
-            </fieldset>
-            <button className="button">Agregar</button>
-          </form>
+          <TodoAdd onNewTodo={handleTodoDataFromForm} />
         </div>
       </div>
       
