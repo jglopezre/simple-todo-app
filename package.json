@@ -1,7 +1,7 @@
 {
   "name": "reducer-practice",
-  "private": true,
-  "version": "0.0.1",
+  "private": false,
+  "version": "0.1.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -22,5 +22,7 @@
   },
   "main": "index.js",
   "author": "Javier L",
-  "license": "MIT"
+  "license": "MIT",
+  "description": "A simple todo list using react",
+  "repository": "https://github.com/jglopezre/simple-todo-app.git"
 }
