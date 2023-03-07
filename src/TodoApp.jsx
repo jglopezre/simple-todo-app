@@ -18,23 +18,22 @@ function TodoApp() {
   } = useTodo();
     
   return (
-    <>
-      <div className="row top-bar">
+    <div className='web-view'>
+      <header className="header-app">
         <h1>{`Lista de Tareas: ${todosCount()}`}</h1>
         <WarningPill count={pendingTodosCount()} />
-      </div>
+      </header>
       
-      <div className="row">
-        <div className="column column-50">
-          <TodoList todos={todos} onDeleteTodo={handleDeleteTodo} onTogleDoneTodo={handleToggleDoneTodo}/>
-        </div>
-        <div className="column column-50 static-right">
-          <h2>Agregar Tarea</h2>
-          <hr />
-          <TodoAdd onNewTodo={handleTodoDataFromForm} />
-        </div>
+      
+      <div className="task-list">
+        <TodoList todos={todos} onDeleteTodo={handleDeleteTodo} onTogleDoneTodo={handleToggleDoneTodo}/>
       </div>
-    </>
+      <div className="add-task-field">
+        <h2>Agregar Tarea</h2>
+        <hr />
+        <TodoAdd onNewTodo={handleTodoDataFromForm} />
+      </div>
+    </div>
   )
 }
 
